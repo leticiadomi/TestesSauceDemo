@@ -17,6 +17,9 @@ namespace TestesSauceDemo.Metodos
         {
             driver = new ChromeDriver(@"C:\chromedriver_win32");
             espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://www.saucedemo.com/");
         }
     }
 }
