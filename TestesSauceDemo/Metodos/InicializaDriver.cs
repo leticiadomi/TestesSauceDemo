@@ -6,21 +6,34 @@ using OpenQA.Selenium.Support.UI;
 namespace TestesSauceDemo.Metodos
 {
     [TestClass]
-
     public class InicializaDriver
     {
-        IWebDriver driver;
-        WebDriverWait espera;
+        public IWebDriver driver;
+        public WebDriverWait espera;
 
-        [TestMethod]
-        public void Inicializar()
+        [TestInitialize]
+        public IWebDriver ObterDriver()
         {
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            driver = new ChromeDriver(configuration.GetValue<string>("DriverChrome"));
-            espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            if(driver == null)
+            {
+                var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                driver = new ChromeDriver(configuration.GetValue<string>("Inicializar:DriverChrome"));
+                espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-            driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+                driver.Manage().Window.Maximize();
+                driver.Navigate().GoToUrl(configuration.GetValue<string>("Inicializar:URL"));
+            }
+            return driver;
         }
+       // [TestMethod]
+       // public void Inicializar()
+       // {
+       //     var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+       //     driver = new ChromeDriver(configuration.GetValue<string>("Inicializar:DriverChrome"));
+       //     espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+       //
+       //     driver.Manage().Window.Maximize();
+       //     driver.Navigate().GoToUrl(configuration.GetValue<string>("Inicializar:URL"));
+       // }
     }
 }
