@@ -2,8 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using System.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 
 namespace TestesSauceDemo.Metodos
 {
@@ -11,8 +9,6 @@ namespace TestesSauceDemo.Metodos
 
     public class InicializaDriver
     {
-        
-
         IWebDriver driver;
         WebDriverWait espera;
 
@@ -20,7 +16,6 @@ namespace TestesSauceDemo.Metodos
         public void Inicializar()
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            //driver = new ChromeDriver(@"C:\chromedriver_win32");
             driver = new ChromeDriver(configuration.GetValue<string>("DriverChrome"));
             espera = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
