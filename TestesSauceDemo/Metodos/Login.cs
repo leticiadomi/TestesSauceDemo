@@ -19,11 +19,17 @@ namespace TestesSauceDemo.Metodos
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             IWebDriver driver = _inicializar.ObterDriver();
+
             IWebElement campoEmail = _inicializar.driver.FindElement(By.CssSelector("input#user-name"));
             campoEmail.SendKeys(configuration.GetValue<string>("Logar:Usuario"));
 
+            //_inicializar.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5); //Aguarda o elemento seguinte aparecer na tela para continuar com o fluxo.
+
             IWebElement campoSenha = _inicializar.driver.FindElement(By.CssSelector("input#password"));
             campoSenha.SendKeys(configuration.GetValue<string>("Logar:Senha"));
+
+            IWebElement btnEntrar = _inicializar.driver.FindElement(By.CssSelector("input#login-button"));
+            btnEntrar.Click();
         }
     }
 }
